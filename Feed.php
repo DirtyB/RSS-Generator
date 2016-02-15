@@ -25,7 +25,7 @@ class Feed extends DOMDocument
         $this->encoding = 'utf-8';
         $rssElement = $this->createElement('rss');
         $rssElement->setAttribute('version', '2.0');
-        $rssElement->setAttribute('xmlns:atom', 'http://www.w3.org/2005/Atom');
+        //$rssElement->setAttribute('xmlns:atom', 'http://www.w3.org/2005/Atom');
         $this->rss = $this->appendChild($rssElement);
     }
 
@@ -34,7 +34,7 @@ class Feed extends DOMDocument
         $channelElement = $this->createElement('channel');
         $this->channel = $this->rss->appendChild($channelElement);
 
-        $this->addChannelElement('atom:link', '', [
+        /*$this->addChannelElement('atom:link', '', [
             'href' => $href
                 ? $href
                 : $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
@@ -42,7 +42,7 @@ class Feed extends DOMDocument
             'type' => 'application/rss+xml'
         ]);
         $this->addChannelGenerator();
-        $this->addChannelDocs();
+        $this->addChannelDocs();*/
         return $this;
     }
 
