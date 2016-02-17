@@ -40,9 +40,9 @@ class Feed extends DOMDocument
                 : $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
             'rel' => 'self',
             'type' => 'application/rss+xml'
-        ]);
+        ]);*/
         $this->addChannelGenerator();
-        $this->addChannelDocs();*/
+        $this->addChannelDocs();
         return $this;
     }
 
@@ -207,9 +207,10 @@ class Feed extends DOMDocument
         return $this;
     }
 
-    public function addItemElement($element, $value, $attr = array())
+    public function addItemElement($element, $value, $attr = array(), $normalize = true)
     {
-        $element = $this->createElement($element, $this->normalizeString($value));
+        $value = $normalize ? $this->normalizeString($value) : htmlspecialchars($value, ENT_COMPAT, $this->encoding);
+        $element = $this->createElement($element, $value);
         foreach ($attr as $key => $value) {
             $element->setAttribute($key, $this->normalizeString($value));
         }
@@ -229,7 +230,7 @@ class Feed extends DOMDocument
 
     public function addItemDescription($value)
     {
-        return $this->addItemElement('description', $value);
+        return $this->addItemElement('description', $value, [], false);
     }
 
     public function addItemAuthor($value)
